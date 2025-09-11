@@ -95,14 +95,14 @@ npm install
 Crie o arquivo `.env` na pasta `backend`:
 ```env
 # Database
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=commerce
-DB_USER=root
-DB_PASSWORD=sua_senha_mysql
+DB_HOST=SEU_HOST_AQUI
+DB_PORT=SUA_PORT_AQUI
+DB_NAME=SUA_DB_MYSQL
+DB_USER=SEU_USER_MYSQL
+DB_PASSWORD=SUA_SENHA_MYSQL
 
 # JWT
-JWT_SECRET=seu_jwt_secret_aqui
+JWT_SECRET=SUA_SENHA_JWT_AQUI
 JWT_EXPIRES_IN=24h
 
 # Server
