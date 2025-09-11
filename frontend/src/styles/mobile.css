@@ -1,0 +1,270 @@
+/* Otimizações para Mobile */
+
+/* Viewport e configurações básicas */
+@media (max-width: 768px) {
+  /* Ajustes gerais */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Typography responsiva */
+  .display-4 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Navbar mobile */
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .navbar-nav .btn {
+    margin: 0.25rem 0;
+    width: 100%;
+  }
+
+  /* Cards responsivos */
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  /* Botões mobile */
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .btn-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Formulários mobile */
+  .form-control {
+    padding: 0.75rem;
+    font-size: 16px; /* Previne zoom no iOS */
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Grid responsivo */
+  .row {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .col, .col-12, .col-md-6, .col-lg-4 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* Modal mobile */
+  .modal-dialog {
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+
+  .modal-content {
+    border-radius: 0.5rem;
+  }
+
+  .modal-header {
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  /* Toast mobile */
+  .Toastify__toast-container {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+  }
+
+  /* Espaçamentos mobile */
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .mb-5 {
+    margin-bottom: 2rem !important;
+  }
+
+  .py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Flexbox mobile */
+  .d-flex.gap-3 {
+    flex-direction: column;
+    gap: 0.75rem !important;
+  }
+
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+
+  /* Texto mobile */
+  .text-center {
+    text-align: center !important;
+  }
+
+  /* Ícones mobile */
+  .fa-3x {
+    font-size: 2rem !important;
+  }
+
+  /* Loading spinner mobile */
+  .spinner-border {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .display-4 {
+    font-size: 2.5rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+}
+
+/* Mobile landscape */
+@media (max-width: 768px) and (orientation: landscape) {
+  .navbar {
+    padding: 0.25rem 0;
+  }
+
+  .container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .py-4 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+/* Touch targets */
+@media (max-width: 768px) {
+  .btn, .nav-link, .form-control {
+    min-height: 44px; /* Apple's recommended touch target size */
+  }
+
+  .btn-sm {
+    min-height: 36px;
+  }
+}
+
+/* Safe area para dispositivos com notch */
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
+  }
+}
+
+/* Melhorias de performance mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .card {
+    will-change: transform;
+  }
+
+  .btn {
+    transition: all 0.2s ease;
+  }
+
+  /* Melhorias específicas para formulários */
+  .form-control:focus {
+    transform: none;
+  }
+
+  /* Scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Melhor contraste em telas pequenas */
+  .text-muted {
+    color: #6c757d !important;
+  }
+
+  /* Ajustes para botões de ação */
+  .btn-primary {
+    font-weight: 600;
+  }
+
+  /* Melhor espaçamento para cards */
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  /* Ajustes para modais em mobile */
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  /* Melhor legibilidade */
+  .navbar-brand {
+    font-weight: 700;
+  }
+
+  /* Ajustes para listas */
+  .list-group-item {
+    padding: 0.75rem 1rem;
+  }
+}

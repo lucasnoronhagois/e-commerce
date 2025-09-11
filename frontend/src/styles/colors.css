@@ -1,0 +1,54 @@
+:root {
+  /* Tons pastéis amarelo-verde (ligeiramente mais escuros) */
+  --primary-yellow: #f0d9a8;    /* Amarelo pastel mais definido */
+  --primary-green: #b8d4ba;     /* Verde pastel mais definido */
+  --secondary-yellow: #fef7e0;  /* Amarelo claro */
+  --secondary-green: #e8f5e8;   /* Verde claro */
+  --accent-yellow: #f5e6b8;     /* Amarelo acento */
+  --accent-green: #d1e7d1;      /* Verde acento */
+  
+  /* Tons mais escuros para contraste */
+  --dark-yellow: #d4b896;       /* Amarelo escuro */
+  --dark-green: #a5d6a7;        /* Verde escuro */
+  --darker-yellow: #b8a082;     /* Amarelo mais escuro */
+  --darker-green: #81c784;      /* Verde mais escuro */
+  
+  /* Cores neutras */
+  --white: #ffffff;
+  --light-gray: #f8fafc;
+  --gray: #64748b;
+  --dark-gray: #334155;
+  --black: #0f172a;
+  
+  /* Cores de status */
+  --success: #059669;           /* Verde - sucesso */
+  --success-light: #d1fae5;     /* Verde claro */
+  --warning: #d97706;           /* Amarelo - alertas */
+  --warning-light: #fef3c7;     /* Amarelo claro */
+  --danger: #dc2626;            /* Vermelho - erro */
+  --danger-light: #fecaca;      /* Vermelho claro */
+  --info: #0ea5e9;              /* Azul - informação */
+  --info-light: #e0f2fe;        /* Azul claro */
+  
+  /* Sombras */
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Classes utilitárias para cores */
+.bg-primary-yellow { background-color: var(--primary-yellow) !important; }
+.bg-primary-green { background-color: var(--primary-green) !important; }
+.bg-secondary-yellow { background-color: var(--secondary-yellow) !important; }
+.bg-secondary-green { background-color: var(--secondary-green) !important; }
+.bg-accent-yellow { background-color: var(--accent-yellow) !important; }
+.bg-accent-green { background-color: var(--accent-green) !important; }
+
+.text-primary-yellow { color: var(--dark-yellow) !important; }
+.text-primary-green { color: var(--darker-green) !important; }
+.text-dark-yellow { color: var(--darker-yellow) !important; }
+.text-dark-green { color: var(--darker-green) !important; }
+
+.border-primary-yellow { border-color: var(--dark-yellow) !important; }
+.border-primary-green { border-color: var(--darker-green) !important; }
