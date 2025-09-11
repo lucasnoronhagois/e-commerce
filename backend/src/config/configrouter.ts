@@ -8,11 +8,11 @@ import customerRoutes from '../routes/customerRoutes';
 export default function setupRoutes(app: Application): void {
   // rotas públicas (não protegidas)
   app.use('/api/products', productRoutes);
-  app.use('/api/stock', stockRoutes);
   
   // rotas de autenticação e registro (públicas)
   app.use('/api/auth', userRoutes);
   
   // rotas protegidas por autenticação
   app.use('/api/users', authenticateToken, userRoutes);
+  app.use('/api/stock', authenticateToken, stockRoutes);
 }

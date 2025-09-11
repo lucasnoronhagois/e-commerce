@@ -7,6 +7,7 @@ import { loadModels } from './config/database';
 import setupRoutes from './config/configrouter';
 import cors from 'cors';
 import compression from 'compression';
+import path from 'path';
 
 const app: Application = express();
 
@@ -16,6 +17,9 @@ app.use(helmet());
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Servir arquivos estáticos (imagens)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 
 

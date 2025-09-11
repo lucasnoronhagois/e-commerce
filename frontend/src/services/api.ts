@@ -13,7 +13,7 @@ import {
 } from '../types';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost:3001/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -51,7 +51,15 @@ export const productApi = {
   create: (data: CreateProductRequest): Promise<Product> => api.post('/products', data).then(res => res.data),
   update: (id: number, data: Partial<CreateProductRequest>): Promise<Product> => 
     api.put(`/products/${id}`, data).then(res => res.data),
-  delete: (id: number): Promise<void> => api.delete(`/products/${id}`).then(res => res.data),
+  delete: (id: number): Promise<void> => api.delete(`/products/${id}`).then(() => {}),
+  uploadImages: (productId: number, formData: FormData): Promise<any[]> => 
+    api.post(`/products/${productId}/images`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }).then(res => res.data),
+  deleteImage: (imageId: number): Promise<void> => api.delete(`/products/images/${imageId}`).then(() => {}),
+  setPrimaryImage: (imageId: number): Promise<void> => api.put(`/products/images/${imageId}/primary`).then(() => {}),
 };
 
 // Stock API

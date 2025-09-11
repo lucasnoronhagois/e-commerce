@@ -3,23 +3,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // Renomear colunas de timestamp para snake_case em todas as tabelas
+    // Verificar e renomear colunas de timestamp para snake_case em todas as tabelas
     
-    // Tabela users
-    await queryInterface.renameColumn('users', 'createdAt', 'created_at');
-    await queryInterface.renameColumn('users', 'updatedAt', 'updated_at');
+    const tables = ['users', 'products', 'stock', 'customers'];
     
-    // Tabela products
-    await queryInterface.renameColumn('products', 'createdAt', 'created_at');
-    await queryInterface.renameColumn('products', 'updatedAt', 'updated_at');
-    
-    // Tabela stock
-    await queryInterface.renameColumn('stock', 'createdAt', 'created_at');
-    await queryInterface.renameColumn('stock', 'updatedAt', 'updated_at');
-    
-    // Tabela customers
-    await queryInterface.renameColumn('customers', 'createdAt', 'created_at');
-    await queryInterface.renameColumn('customers', 'updatedAt', 'updated_at');
+    for (const table of tables) {
+      try {
+        // Verificar se a coluna createdAt existe antes de renomear
+        const tableDescription = await queryInterface.describeTable(table);
+        
+        if (tableDescription.createdAt && !tableDescription.created_at) {
+          await queryInterface.renameColumn(table, 'createdAt', 'created_at');
+        }
+        
+        if (tableDescription.updatedAt && !tableDescription.updated_at) {
+          await queryInterface.renameColumn(table, 'updatedAt', 'updated_at');
+        }
+      } catch (error) {
+        console.log(`Tabela ${table} não existe ou já foi processada:`, error.message);
+      }
+    }
   },
 
   async down (queryInterface, Sequelize) {

@@ -2,7 +2,7 @@ import { Product, Stock } from '../models';
 import { Op } from 'sequelize';
 
 export class ProductService {
-  async createProduct(data: { name: string }) {
+  async createProduct(data: { name: string; description?: string; price?: number; category: string }) {
     return await Product.create(data);
   }
 
@@ -36,7 +36,7 @@ export class ProductService {
     return product;
   }
 
-  async updateProduct(id: number, data: { name?: string }) {
+  async updateProduct(id: number, data: { name?: string; description?: string; price?: number; category?: string }) {
     const product = await Product.findOne({
       where: { id, is_deleted: false }
     });

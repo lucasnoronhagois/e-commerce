@@ -1,9 +1,28 @@
+export interface ProductImage {
+  id: number;
+  product_id: number;
+  filename: string;
+  original_name: string;
+  mime_type: string;
+  size: number;
+  url: string;
+  alt_text?: string;
+  is_primary: boolean;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Product {
   id: number;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  description?: string;
+  price?: number;
+  category: string;
+  created_at: string;
+  updated_at: string;
   stocks?: Stock[];
+  images?: ProductImage[];
 }
 
 export interface Stock {
@@ -56,6 +75,9 @@ export interface LoginRequest {
 
 export interface CreateProductRequest {
   name: string;
+  description?: string;
+  price?: number;
+  category: string;
 }
 
 export interface CreateStockRequest {
