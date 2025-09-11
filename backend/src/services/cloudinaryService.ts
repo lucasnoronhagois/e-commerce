@@ -10,9 +10,25 @@ cloudinary.config({
 });
 
 export class CloudinaryService {
-  async uploadProductImage(filePath: string, productId: number): Promise<any> {
+  async uploadProductImage(fileBuffer: Buffer, productId: number, filename: string): Promise<any> {
     try {
-      const result = await cloudinary.uploader.upload(filePath, {
+      // Validar buffer
+      if (!fileBuffer || fileBuffer.length === 0) {
+        throw new Error('Buffer de arquivo está vazio');
+      }
+
+      // Determinar o tipo MIME baseado na extensão do arquivo
+      const ext = filename.toLowerCase().split('.').pop();
+      let mimeType = 'image/jpeg'; // padrão
+      
+      if (ext === 'png') mimeType = 'image/png';
+      else if (ext === 'webp') mimeType = 'image/webp';
+      else if (ext === 'gif') mimeType = 'image/gif';
+
+      const result = await cloudinary.uploader.upload(
+        `data:${mimeType};base64,${fileBuffer.toString('base64')}`,
+        {
+          public_id: filename.replace(/\.[^/.]+$/, ''), // Remove extensão
         folder: `products/${productId}`,
         transformation: [
           {
@@ -34,14 +50,14 @@ export class CloudinaryService {
         format: result.format,
         bytes: result.bytes
       };
-    } catch (error) {
-      throw new Error(`Erro ao fazer upload para Cloudinary: ${error}`);
-    }
+        } catch (error) {
+          throw new Error(`Erro ao fazer upload para Cloudinary: ${error}`);
+        }
   }
 
   async uploadMultipleImages(files: any[], productId: number, cropData: any[] = []): Promise<any[]> {
     const uploadPromises = files.map(async (file, index) => {
-      const result = await this.uploadProductImage(file.path, productId);
+      const result = await this.uploadProductImage(file.buffer, productId, file.filename);
       
       // Gerar thumbnail se houver dados de crop
       let thumbnailUrl = result.secure_url;
@@ -55,7 +71,7 @@ export class CloudinaryService {
       }
       
       // Salvar no banco de dados
-      const image = await ProductImage.create({
+      const imageData = {
         product_id: productId,
         filename: result.public_id.split('/').pop() || '',
         original_name: file.originalname,
@@ -68,7 +84,9 @@ export class CloudinaryService {
         alt_text: this.generateAltText(file.originalname),
         is_primary: false,
         order: 0
-      });
+      };
+      
+      const image = await ProductImage.create(imageData);
 
       return image;
     });
@@ -109,11 +127,12 @@ export class CloudinaryService {
   }
 
   private adjustCropCoordinates(crop: any, cloudinaryWidth: number, cloudinaryHeight: number): any {
-    // As coordenadas foram calculadas para 1280x960, mas a imagem no Cloudinary é 800x600
-    // Precisamos ajustar as coordenadas proporcionalmente
+    // As coordenadas foram calculadas para as dimensões originais da imagem
+    // Precisamos ajustar as coordenadas proporcionalmente para as dimensões do Cloudinary
     
-    const originalWidth = 1280;  // Dimensões assumidas do frontend
-    const originalHeight = 960;
+    // Usar as dimensões originais que foram enviadas do frontend
+    const originalWidth = crop.originalWidth || 1280;  // Fallback para dimensões padrão
+    const originalHeight = crop.originalHeight || 960;
     
     const scaleX = cloudinaryWidth / originalWidth;
     const scaleY = cloudinaryHeight / originalHeight;

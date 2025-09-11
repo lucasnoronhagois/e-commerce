@@ -140,11 +140,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           x: Math.round(cropArea.x * scaleX),
           y: Math.round(cropArea.y * scaleY),
           width: Math.round(cropArea.width * scaleX),
-          height: Math.round(cropArea.height * scaleY)
+          height: Math.round(cropArea.height * scaleY),
+          originalWidth: img.naturalWidth,
+          originalHeight: img.naturalHeight
         };
         
         // Crop calculado com sucesso
-        
         
         // Salvar dados do crop escalados
         const newCropData = [...cropData];
@@ -271,15 +272,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       Array.from(selectedFiles).forEach((file, index) => {
         formData.append('images', file);
         
-        // Se houver crop, enviar também o thumbnail cropado
-        if (croppedImages[index] && croppedImages[index] !== previews[index]) {
-          // Converter o thumbnail cropado para blob e enviar
-          fetch(croppedImages[index])
-            .then(res => res.blob())
-            .then(blob => {
-              const thumbnailFile = new File([blob], `thumbnail_${index}.jpg`, { type: 'image/jpeg' });
-              formData.append(`thumbnails`, thumbnailFile);
-            });
+        // Enviar dados de crop se existirem
+        if (cropData[index]) {
+          formData.append(`crop_data_${index}`, JSON.stringify(cropData[index]));
         }
       });
 

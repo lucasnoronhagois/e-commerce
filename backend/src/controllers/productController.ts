@@ -84,6 +84,8 @@ export class ProductController {
     try {
       const { productId } = req.params;
       
+      // Upload de imagens
+      
       if (!(req as any).processedFiles || (req as any).processedFiles.length === 0) {
         return res.status(400).json({ error: 'Nenhuma imagem foi enviada' });
       }
@@ -110,19 +112,11 @@ export class ProductController {
         cropData
       );
 
-      // Limpar arquivos temporários
-      const fs = require('fs');
-      (req as any).processedFiles.forEach((file: any) => {
-        if (fs.existsSync(file.path)) {
-          fs.unlinkSync(file.path);
-        }
-      });
-
       // Retornar TODAS as imagens do produto (existentes + novas)
       const allImages = await imageService.getProductImages(parseInt(productId));
       return res.status(201).json(allImages);
     } catch (error: any) {
-      return res.status(400).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 

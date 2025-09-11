@@ -1,6 +1,4 @@
 import { ProductImage } from '../models';
-import path from 'path';
-import fs from 'fs';
 
 export class ImageService {
   async saveProductImages(productId: number, files: any[]): Promise<ProductImage[]> {
@@ -47,11 +45,8 @@ export class ImageService {
       throw new Error('Imagem não encontrada');
     }
 
-    // Deletar arquivo físico
-    const filePath = path.join('uploads/products', image.filename);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
+    // Nota: Com Cloudinary, não precisamos deletar arquivos físicos locais
+    // O Cloudinary gerencia os arquivos automaticamente
 
     // Deletar do banco
     await image.destroy();
@@ -95,12 +90,8 @@ export class ImageService {
       where: { product_id: productId },
     });
 
-    for (const image of images) {
-      const filePath = path.join('uploads/products', image.filename);
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
-    }
+    // Nota: Com Cloudinary, não precisamos deletar arquivos físicos locais
+    // O Cloudinary gerencia os arquivos automaticamente
 
     await ProductImage.destroy({
       where: { product_id: productId },

@@ -6,6 +6,9 @@ export interface ProductImage {
   mime_type: string;
   size: number;
   url: string;
+  thumbnail_url?: string;
+  original_url?: string;
+  crop_data?: any;
   alt_text?: string;
   is_primary: boolean;
   order: number;
@@ -27,10 +30,10 @@ export interface Product {
 
 export interface Stock {
   id: number;
-  productId: number;
+  product_id: number;
   quantity: number;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
   product?: Product;
 }
 
@@ -41,8 +44,8 @@ export interface User {
   mail: string;
   login: string;
   role: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Customer {
@@ -58,8 +61,8 @@ export interface Customer {
   city: string;
   state: string;
   address_number: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface AuthResponse {
@@ -81,7 +84,7 @@ export interface CreateProductRequest {
 }
 
 export interface CreateStockRequest {
-  productId: number;
+  product_id: number;
   quantity: number;
 }
 
