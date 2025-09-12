@@ -1,54 +1,198 @@
 :root {
-  /* Tons pastéis amarelo-verde (ligeiramente mais escuros) */
-  --primary-yellow: #f0d9a8;    /* Amarelo pastel mais definido */
-  --primary-green: #b8d4ba;     /* Verde pastel mais definido */
-  --secondary-yellow: #fef7e0;  /* Amarelo claro */
-  --secondary-green: #e8f5e8;   /* Verde claro */
-  --accent-yellow: #f5e6b8;     /* Amarelo acento */
-  --accent-green: #d1e7d1;      /* Verde acento */
+  /* Paleta Fashion/Luxury - Elegante e Sofisticada */
   
-  /* Tons mais escuros para contraste */
-  --dark-yellow: #d4b896;       /* Amarelo escuro */
-  --dark-green: #a5d6a7;        /* Verde escuro */
-  --darker-yellow: #b8a082;     /* Amarelo mais escuro */
-  --darker-green: #81c784;      /* Verde mais escuro */
+  /* Cores Primárias - Preto e Branco (Clássico Luxury) */
+  --primary-black: #000000;     /* Preto absoluto - elegância */
+  --primary-white: #ffffff;     /* Branco puro - sofisticação */
+  --primary-charcoal: #1a1a1a;  /* Preto suave - moderno */
+  --primary-cream: #fafafa;     /* Branco quente - acolhedor */
   
-  /* Cores neutras */
-  --white: #ffffff;
-  --light-gray: #f8fafc;
-  --gray: #64748b;
-  --dark-gray: #334155;
-  --black: #0f172a;
+  /* Cores Secundárias - Metálicos */
+  --gold: #d4af37;              /* Ouro clássico - luxo */
+  --gold-light: #f4e4bc;        /* Ouro claro - elegância */
+  --silver: #c0c0c0;            /* Prata - sofisticação */
+  --silver-light: #e8e8e8;      /* Prata claro - moderno */
+  --rose-gold: #e8b4b8;         /* Rose gold - feminino */
+  --rose-gold-light: #f5e6e7;   /* Rose gold claro - delicado */
   
-  /* Cores de status */
-  --success: #059669;           /* Verde - sucesso */
+  /* Cores de Acento - Tons Terrosos Elegantes */
+  --accent-burgundy: #800020;   /* Borgonha - sofisticação */
+  --accent-navy: #1e3a8a;       /* Azul marinho - confiança */
+  --accent-forest: #2d5016;     /* Verde floresta - natural */
+  --accent-camel: #c19a6b;      /* Camelo - neutro elegante */
+  
+  /* Cores Neutras - Escala de Cinzas Sofisticados */
+  --gray-50: #f9fafb;           /* Cinza muito claro */
+  --gray-100: #f3f4f6;          /* Cinza claro */
+  --gray-200: #e5e7eb;          /* Cinza médio claro */
+  --gray-300: #d1d5db;          /* Cinza médio */
+  --gray-400: #9ca3af;          /* Cinza médio escuro */
+  --gray-500: #6b7280;          /* Cinza escuro */
+  --gray-600: #4b5563;          /* Cinza muito escuro */
+  --gray-700: #374151;          /* Cinza quase preto */
+  --gray-800: #1f2937;          /* Preto suave */
+  --gray-900: #111827;          /* Preto profundo */
+  
+  /* Cores de Status - Refinadas */
+  --success: #059669;           /* Verde esmeralda - sucesso */
   --success-light: #d1fae5;     /* Verde claro */
-  --warning: #d97706;           /* Amarelo - alertas */
-  --warning-light: #fef3c7;     /* Amarelo claro */
-  --danger: #dc2626;            /* Vermelho - erro */
+  --warning: #d97706;           /* Âmbar - atenção */
+  --warning-light: #fef3c7;     /* Âmbar claro */
+  --danger: #dc2626;            /* Vermelho coral - erro */
   --danger-light: #fecaca;      /* Vermelho claro */
-  --info: #0ea5e9;              /* Azul - informação */
+  --info: #0ea5e9;              /* Azul safira - informação */
   --info-light: #e0f2fe;        /* Azul claro */
   
-  /* Sombras */
-  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  /* Sombras Elegantes */
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 10px 15px rgba(0, 0, 0, 0.18);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.25);
+  --shadow-gold: 0 4px 14px rgba(212, 175, 55, 0.3);
+  --shadow-luxury: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Classes utilitárias para cores */
-.bg-primary-yellow { background-color: var(--primary-yellow) !important; }
-.bg-primary-green { background-color: var(--primary-green) !important; }
-.bg-secondary-yellow { background-color: var(--secondary-yellow) !important; }
-.bg-secondary-green { background-color: var(--secondary-green) !important; }
-.bg-accent-yellow { background-color: var(--accent-yellow) !important; }
-.bg-accent-green { background-color: var(--accent-green) !important; }
+/* Classes utilitárias para cores Fashion/Luxury */
 
-.text-primary-yellow { color: var(--dark-yellow) !important; }
-.text-primary-green { color: var(--darker-green) !important; }
-.text-dark-yellow { color: var(--darker-yellow) !important; }
-.text-dark-green { color: var(--darker-green) !important; }
+/* Backgrounds */
+.bg-luxury-black { background-color: var(--primary-black) !important; }
+.bg-luxury-white { background-color: var(--primary-white) !important; }
+.bg-luxury-charcoal { background-color: var(--primary-charcoal) !important; }
+.bg-luxury-cream { background-color: var(--primary-cream) !important; }
+.bg-luxury-gold { background-color: var(--gold) !important; }
+.bg-luxury-gold-light { background-color: var(--gold-light) !important; }
+.bg-luxury-silver { background-color: var(--silver) !important; }
+.bg-luxury-silver-light { background-color: var(--silver-light) !important; }
+.bg-luxury-rose-gold { background-color: var(--rose-gold) !important; }
+.bg-luxury-rose-gold-light { background-color: var(--rose-gold-light) !important; }
 
-.border-primary-yellow { border-color: var(--dark-yellow) !important; }
-.border-primary-green { border-color: var(--darker-green) !important; }
+/* Text Colors */
+.text-luxury-black { color: var(--primary-black) !important; }
+.text-luxury-white { color: var(--primary-white) !important; }
+.text-luxury-charcoal { color: var(--primary-charcoal) !important; }
+.text-luxury-gold { color: var(--gold) !important; }
+.text-luxury-silver { color: var(--silver) !important; }
+.text-luxury-rose-gold { color: var(--rose-gold) !important; }
+.text-luxury-burgundy { color: var(--accent-burgundy) !important; }
+.text-luxury-navy { color: var(--accent-navy) !important; }
+
+/* Borders */
+.border-luxury-black { border-color: var(--primary-black) !important; }
+.border-luxury-gold { border-color: var(--gold) !important; }
+.border-luxury-silver { border-color: var(--silver) !important; }
+.border-luxury-rose-gold { border-color: var(--rose-gold) !important; }
+
+/* Gradients Luxury */
+.gradient-luxury-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
+}
+
+.gradient-luxury-silver {
+  background: linear-gradient(135deg, var(--silver) 0%, var(--silver-light) 100%) !important;
+}
+
+.gradient-luxury-rose-gold {
+  background: linear-gradient(135deg, var(--rose-gold) 0%, var(--rose-gold-light) 100%) !important;
+}
+
+.gradient-luxury-black-white {
+  background: linear-gradient(135deg, var(--primary-black) 0%, var(--primary-white) 100%) !important;
+}
+
+/* Shadows Luxury */
+.shadow-luxury { box-shadow: var(--shadow-luxury) !important; }
+.shadow-gold { box-shadow: var(--shadow-gold) !important; }
+
+/* Input Styles */
+.border-luxury-silver {
+  border: 1px solid var(--silver) !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-luxury-silver:hover {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 0.1rem rgba(212, 175, 55, 0.15) !important;
+}
+
+/* Focus States */
+.focus-luxury-gold:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+  outline: none !important;
+}
+
+.focus-luxury-silver:focus {
+  border-color: var(--silver) !important;
+  box-shadow: 0 0 0 0.2rem rgba(192, 192, 192, 0.25) !important;
+  outline: none !important;
+}
+
+/* Form Input Styles */
+.form-control.border-luxury-silver {
+  border: 1px solid var(--silver) !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  background-color: var(--luxury-white) !important;
+  color: var(--luxury-charcoal) !important;
+}
+
+.form-control.border-luxury-silver:hover {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 0.1rem rgba(212, 175, 55, 0.15) !important;
+}
+
+.form-control.border-luxury-silver:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+  outline: none !important;
+  background-color: var(--luxury-white) !important;
+  color: var(--luxury-charcoal) !important;
+}
+
+/* Button Styles */
+.btn.gradient-luxury-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
+  border: none !important;
+  color: var(--luxury-black) !important;
+  font-weight: bold !important;
+  box-shadow: var(--shadow-gold) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn.gradient-luxury-gold:hover {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
+}
+
+.btn.gradient-luxury-gold:focus {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.5) !important;
+  outline: none !important;
+}
+
+.btn.gradient-luxury-gold:active {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%) !important;
+  transform: translateY(0) !important;
+}
+
+/* Outline Button Styles */
+.btn.border-luxury-gold {
+  border: 1px solid var(--gold) !important;
+  color: var(--luxury-charcoal) !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn.border-luxury-gold:hover {
+  background-color: var(--gold) !important;
+  color: var(--luxury-black) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+}
+
+.btn.border-luxury-gold:focus {
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+  outline: none !important;
+}

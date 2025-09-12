@@ -122,9 +122,15 @@ const Customers: React.FC = () => {
       const submitData = {
         ...formData,
         phone: removeFormatting(formData.phone),
-        zip_code: removeFormatting(formData.zip_code),
-        document: removeFormatting(formData.document)
+        zip_code: removeFormatting(formData.zip_code || ''),
+        document: removeFormatting(formData.document || ''),
+        address: formData.address || '',
+        neighborhood: formData.neighborhood || '',
+        city: formData.city || '',
+        state: formData.state || '',
+        address_number: formData.address_number || ''
       };
+
 
       if (editingCustomer) {
         // Atualizar cliente existente
@@ -265,7 +271,7 @@ const Customers: React.FC = () => {
                     <th>Documento</th>
                     <th>Cidade</th>
                     <th>Cadastrado em</th>
-                    <th width="120">Ações</th>
+                    <th style={{ width: '120px' }}>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -308,7 +314,7 @@ const Customers: React.FC = () => {
                       </td>
                       <td>
                         <small className="text-muted">
-                          {new Date(customer.created_at).toLocaleDateString('pt-BR')}
+                          {customer.user?.created_at ? new Date(customer.user.created_at).toLocaleDateString('pt-BR') : 'N/A'}
                         </small>
                       </td>
                       <td>
@@ -531,7 +537,7 @@ const Customers: React.FC = () => {
             </Row>
 
             <Form.Group className="mb-3">
-              <Form.Label>CPF/CNPJ</Form.Label>
+              <Form.Label>CPF</Form.Label>
               <Form.Control
                 type="text"
                 name="document"

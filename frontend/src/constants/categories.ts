@@ -8,22 +8,22 @@ export const PRODUCT_CATEGORIES: Category[] = [
   {
     value: 'rings',
     label: 'Anéis',
-    icon: '💍'
+    icon: ''
   },
   {
     value: 'necklaces',
     label: 'Colares',
-    icon: '📿'
+    icon: ''
   },
   {
     value: 'bags_purse',
     label: 'Bolsas',
-    icon: '👜'
+    icon: ''
   },
   {
     value: 'high_heeled_shoes',
     label: 'Sapatos de Salto',
-    icon: '👠'
+    icon: ''
   }
 ];
 
@@ -34,5 +34,5 @@ export const getCategoryLabel = (value: string): string => {
 
 export const getCategoryIcon = (value: string): string => {
   const category = PRODUCT_CATEGORIES.find(cat => cat.value === value);
-  return category ? category.icon : '📦';
+  return category ? category.icon : '';
 };

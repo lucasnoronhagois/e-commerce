@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Button, Form, Modal, Alert, Badge } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import { Product } from '../types';
 import { productApi, stockApi } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
+import { useCart } from '../contexts/CartContext';
 import ImageUpload from '../components/ImageUpload';
-import { PRODUCT_CATEGORIES, getCategoryLabel, getCategoryIcon } from '../constants/categories';
+import { PRODUCT_CATEGORIES, getCategoryLabel } from '../constants/categories';
 import toast from 'react-hot-toast';
 import { normalizeText } from '../utils/formatters';
 
@@ -112,7 +114,7 @@ const Products: React.FC = () => {
   const [sortBy, setSortBy] = useState<'name' | 'price'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(9);
+  const [itemsPerPage] = useState(8);
   const [showModal, setShowModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState(false);
@@ -121,7 +123,12 @@ const Products: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', description: '', price: '', category: '', stockQuantity: '' });
   const [error, setError] = useState('');
 
-  const { isAdmin } = useAuth();
+  const { isAdmin, isAuthenticated } = useAuth();
+  const { addToCart, isInitialized } = useCart();
+  const location = useLocation();
+  
+  // Detectar se estamos no modo admin baseado na URL
+  const isAdminMode = location.pathname === '/products/manage';
 
   useEffect(() => {
     loadProducts();
@@ -332,29 +339,51 @@ const Products: React.FC = () => {
 
   return (
     <div className="fade-in">
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
-        <h2 className="text-dark-green mb-0">Produtos</h2>
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5 gap-3 p-4 bg-luxury-cream border border-luxury-gold rounded-lg shadow-luxury">
+        <div>
+          <h2 className="text-luxury-charcoal mb-1 fw-bold fs-1 tracking-wide">COLEÇÃO</h2>
+          <p className="text-luxury-charcoal mb-0 small opacity-75">Produtos de luxo selecionados para o cliente exigente</p>
+        </div>
         {isAdmin && (
-          <Button variant="primary" onClick={openModal} className="w-100 w-md-auto">
-            Adicionar Produto
+          <Button 
+            onClick={openModal} 
+            className="w-100 w-md-auto gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
+          >
+            <i className="fas fa-plus me-2"></i>
+            ADICIONAR PRODUTO
           </Button>
         )}
       </div>
 
       <Row className="mb-4 g-2">
-        <Col xs={12} md={8}>
-          <Form.Control
-            type="text"
-            placeholder="Buscar produtos..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-          />
+        <Col xs={12} md={6}>
+          <div className="position-relative">
+            <Form.Control
+              type="text"
+                  placeholder="Buscar na coleção..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              className="border-luxury-silver bg-luxury-cream text-luxury-charcoal fw-medium"
+              style={{ 
+                borderWidth: '2px',
+                borderRadius: '8px',
+                padding: '12px 16px 12px 45px',
+                fontSize: '14px'
+              }}
+            />
+            <i className="fas fa-search position-absolute top-50 start-0 translate-middle-y text-luxury-silver ms-3"></i>
+          </div>
         </Col>
-        <Col xs={12} md={4}>
-          <Button variant="outline-primary" onClick={handleSearch} className="w-100">
-            Buscar
-          </Button>
+        <Col xs={12} md={3}>
+              <Button 
+                onClick={handleSearch} 
+                className="w-100 gradient-luxury-silver text-luxury-black fw-bold border-0 shadow-luxury"
+                style={{ borderRadius: '8px', padding: '12px' }}
+              >
+                <i className="fas fa-search me-2"></i>
+                BUSCAR
+              </Button>
         </Col>
       </Row>
 
@@ -363,35 +392,47 @@ const Products: React.FC = () => {
         <Col xs={12}>
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div className="d-flex align-items-center gap-3 flex-wrap">
-              <span className="text-muted">Ordenar por:</span>
+              <span className="text-luxury-charcoal fw-medium small">ORDENAR POR:</span>
               <Form.Select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'name' | 'price')}
-                style={{ width: '120px' }}
+                className="border-luxury-silver bg-luxury-white text-luxury-charcoal fw-medium"
+                style={{ 
+                  width: '120px',
+                  borderWidth: '2px',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}
               >
-                <option value="name">Nome</option>
-                <option value="price">Preço</option>
+                <option value="name">NOME</option>
+                <option value="price">PREÇO</option>
               </Form.Select>
-              <span className="text-muted">Ordem:</span>
+              <span className="text-luxury-charcoal fw-medium small">ORDEM:</span>
               <Form.Select
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                style={{ width: '150px' }}
+                className="border-luxury-silver bg-luxury-white text-luxury-charcoal fw-medium"
+                style={{ 
+                  width: '150px',
+                  borderWidth: '2px',
+                  borderRadius: '6px',
+                  fontSize: '14px'
+                }}
               >
-                <option value="asc">Crescente</option>
-                <option value="desc">Decrescente</option>
+                <option value="asc">CRESCENTE</option>
+                <option value="desc">DECRESCENTE</option>
               </Form.Select>
             </div>
             
-            <div className="text-muted">
-              <small>
-                Página {currentPage} de {totalPages || 1} • 
-                mostrando {currentProducts.length} produto{currentProducts.length !== 1 ? 's' : ''}
+            <div className="text-luxury-charcoal">
+              <small className="fw-medium">
+                PÁGINA {currentPage} DE {totalPages || 1} • 
+                MOSTRANDO {currentProducts.length} ITEM{currentProducts.length !== 1 ? 'S' : ''}
                 {selectedCategory !== 'all' && (
-                  <span> de {products.filter(p => p.category === selectedCategory).length}</span>
+                  <span> DE {products.filter(p => p.category === selectedCategory).length}</span>
                 )}
                 {selectedCategory === 'all' && products.length > 0 && (
-                  <span> de {products.length} total</span>
+                  <span> DE {products.length} TOTAL</span>
                 )}
               </small>
             </div>
@@ -401,20 +442,20 @@ const Products: React.FC = () => {
 
       <Row>
         {/* Menu Lateral - Filtros por Categoria */}
-        <Col lg={3} md={4} className="mb-4">
-          <Card className="h-100">
-            <Card.Header className="bg-light">
-              <h5 className="text-dark-green mb-0">Filtrar por Categoria</h5>
+        <Col lg={2} md={3} className="mb-4">
+          <Card className="h-100 border-luxury-silver shadow-luxury">
+            <Card.Header className="bg-luxury-charcoal border-luxury-silver">
+              <h5 className="text-luxury-gold mb-0 fw-bold">CATEGORIES</h5>
             </Card.Header>
             <Card.Body className="p-0">
               <div className="list-group list-group-flush">
                 <button
-                  className={`list-group-item list-group-item-action d-flex align-items-center ${selectedCategory === 'all' ? 'active' : ''}`}
+                  className={`list-group-item list-group-item-action d-flex align-items-center border-0 ${selectedCategory === 'all' ? 'bg-luxury-gold text-luxury-black' : 'bg-luxury-white text-luxury-charcoal'}`}
                   onClick={() => setSelectedCategory('all')}
                 >
-                  <span className="me-2">📦</span>
-                  <span>Todas as Categorias</span>
-                  <span className="ms-auto badge bg-secondary rounded-pill">
+                  <span className="me-2"></span>
+                  <span className="fw-medium">ALL CATEGORIES</span>
+                  <span className={`ms-auto badge rounded-pill ${selectedCategory === 'all' ? 'bg-luxury-black text-luxury-gold' : 'bg-luxury-silver text-luxury-black'}`}>
                     {products.length}
                   </span>
                 </button>
@@ -423,12 +464,12 @@ const Products: React.FC = () => {
                   return (
                     <button
                       key={category.value}
-                      className={`list-group-item list-group-item-action d-flex align-items-center ${selectedCategory === category.value ? 'active' : ''}`}
+                      className={`list-group-item list-group-item-action d-flex align-items-center border-0 ${selectedCategory === category.value ? 'bg-luxury-gold text-luxury-black' : 'bg-luxury-white text-luxury-charcoal'}`}
                       onClick={() => setSelectedCategory(category.value)}
                     >
-                      <span className="me-2">{category.icon}</span>
-                      <span>{category.label}</span>
-                      <span className="ms-auto badge bg-secondary rounded-pill">
+                      <span className="me-2"></span>
+                      <span className="fw-medium">{category.label.toUpperCase()}</span>
+                      <span className={`ms-auto badge rounded-pill ${selectedCategory === category.value ? 'bg-luxury-black text-luxury-gold' : 'bg-luxury-silver text-luxury-black'}`}>
                         {categoryCount}
                       </span>
                     </button>
@@ -440,7 +481,7 @@ const Products: React.FC = () => {
         </Col>
 
         {/* Área Principal - Lista de Produtos */}
-        <Col lg={9} md={8}>
+        <Col lg={10} md={9}>
 
       {isLoading ? (
         <div className="text-center py-5">
@@ -451,8 +492,8 @@ const Products: React.FC = () => {
       ) : (
         <Row className="g-3 g-md-4">
           {currentProducts.map((product) => (
-            <Col key={product.id} xs={12} sm={6} lg={4}>
-              <Card className="h-100 card" style={{ cursor: 'pointer' }} onClick={() => openProductModal(product)}>
+            <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
+              <Card className="h-100 card d-flex flex-column" style={{ cursor: 'pointer' }} onClick={() => openProductModal(product)}>
                 {/* Carrossel de imagens do produto */}
                 {product.images && product.images.length > 0 ? (
                   <ProductImageCarousel images={product.images} productName={product.name} />
@@ -465,14 +506,15 @@ const Products: React.FC = () => {
                   </div>
                 )}
                 
-                <Card.Body>
-                  <div className="d-flex justify-content-between align-items-start mb-2">
+                <Card.Body className="d-flex flex-column flex-grow-1">
+                  <div className="flex-grow-1">
+                    <div className="d-flex justify-content-between align-items-start mb-2">
                     <Card.Title className="text-dark-green mb-0">
                       {product.name}
                     </Card.Title>
-                    <Badge bg="primary" className="ms-2">
-                      {getCategoryIcon(product.category)} {getCategoryLabel(product.category)}
-                    </Badge>
+                    <span className="badge bg-luxury-gold text-luxury-black fw-bold ms-2 px-3 py-2" style={{ fontSize: '11px', borderRadius: '12px' }}>
+                      {getCategoryLabel(product.category).toUpperCase()}
+                    </span>
                   </div>
                   
                   {product.description && (
@@ -494,22 +536,26 @@ const Products: React.FC = () => {
                     </Card.Text>
                   )}
                   
-                  <Card.Text className="text-muted small">
-                    ID: {product.id}
-                  </Card.Text>
+                  {isAdmin && isAdminMode && (
+                    <Card.Text className="text-muted small">
+                      ID: {product.id}
+                    </Card.Text>
+                  )}
                   
                   {product.stocks && product.stocks.length > 0 && (() => {
                     const totalStock = product.stocks.reduce((total, stock) => total + stock.quantity, 0);
                     return (
                       <Card.Text className="text-muted small">
-                        Estoque: {totalStock} unidades
+                        {isAdmin && isAdminMode && (
+                          <span>Estoque: {totalStock} unidades</span>
+                        )}
                         {totalStock < 10 && totalStock > 0 && (
-                          <span className="ms-2 fw-bold" style={{ 
+                          <span className={`fw-bold ${isAdmin ? 'ms-2' : ''}`} style={{ 
                             animation: 'pulse 1.5s infinite',
                             fontSize: '0.75rem',
                             color: '#dc3545' // Vermelho Bootstrap
                           }}>
-                            🔥 Últimas unidades
+                            🔥 Restam apenas {totalStock} unidades
                           </span>
                         )}
                       </Card.Text>
@@ -523,9 +569,47 @@ const Products: React.FC = () => {
                       </Badge>
                     </Card.Text>
                   )}
-                  
-                  {isAdmin && (
-                    <div className="d-flex gap-2 mt-3 flex-column flex-sm-row">
+                  </div>
+
+                  {/* Botão Adicionar ao Carrinho - Fixo na parte inferior */}
+                  <div className="mt-auto pt-3">
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!isAdminMode) {
+                          // Modo público - verificar se está logado
+                          if (!isAuthenticated) {
+                            toast.error('Faça login para adicionar itens ao carrinho!', {
+                              icon: '🔒',
+                              style: {
+                                background: 'var(--luxury-charcoal)',
+                                color: 'var(--luxury-white)',
+                                fontWeight: 'bold'
+                              }
+                            });
+                            return;
+                          }
+                        }
+                        
+                        if (isInitialized) {
+                          addToCart(product);
+                        } else {
+                          console.warn('Carrinho ainda não foi inicializado');
+                        }
+                      }}
+                      className="w-100 gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
+                      style={{ fontSize: '12px', padding: '6px 12px' }}
+                      disabled={!isInitialized}
+                    >
+                      <i className="fas fa-shopping-cart me-1"></i>
+                      {isInitialized ? 'ADICIONAR' : 'CARREGANDO...'}
+                    </Button>
+                  </div>
+
+                  {isAdmin && isAdminMode && (
+                    <div className="d-flex gap-1 mt-2 flex-column flex-sm-row">
                       <Button
                         variant="outline-primary"
                         size="sm"
@@ -534,6 +618,7 @@ const Products: React.FC = () => {
                           handleEdit(product);
                         }}
                         className="w-100 w-sm-auto"
+                        style={{ fontSize: '11px', padding: '4px 8px' }}
                       >
                         Editar
                       </Button>
@@ -545,6 +630,7 @@ const Products: React.FC = () => {
                           openImageModal(product);
                         }}
                         className="w-100 w-sm-auto"
+                        style={{ fontSize: '11px', padding: '4px 8px' }}
                       >
                         Imagens
                       </Button>
@@ -556,6 +642,7 @@ const Products: React.FC = () => {
                           handleDelete(product.id);
                         }}
                         className="w-100 w-sm-auto"
+                        style={{ fontSize: '11px', padding: '4px 8px' }}
                       >
                         Excluir
                       </Button>
@@ -574,22 +661,35 @@ const Products: React.FC = () => {
           <Col xs={12}>
             <div className="d-flex justify-content-center">
               <nav aria-label="Navegação de páginas">
-                <ul className="pagination">
+                <ul className="pagination mb-0">
                   <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button
-                      className="page-link"
+                      className={`page-link border-luxury-silver fw-medium ${currentPage === 1 ? 'bg-luxury-silver text-luxury-charcoal' : 'bg-luxury-white text-luxury-charcoal hover:bg-luxury-gold hover:text-luxury-black'}`}
                       onClick={() => setCurrentPage(currentPage - 1)}
                       disabled={currentPage === 1}
+                      style={{ 
+                        borderWidth: '2px',
+                        borderRadius: '6px',
+                        margin: '0 2px',
+                        minWidth: '80px'
+                      }}
                     >
-                      Anterior
+                      <i className="fas fa-chevron-left me-1"></i>
+                      ANTERIOR
                     </button>
                   </li>
                   
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                     <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
                       <button
-                        className="page-link"
+                        className={`page-link border-luxury-silver fw-bold ${currentPage === page ? 'bg-luxury-gold text-luxury-black' : 'bg-luxury-white text-luxury-charcoal hover:bg-luxury-silver hover:text-luxury-black'}`}
                         onClick={() => setCurrentPage(page)}
+                        style={{ 
+                          borderWidth: '2px',
+                          borderRadius: '6px',
+                          margin: '0 2px',
+                          minWidth: '40px'
+                        }}
                       >
                         {page}
                       </button>
@@ -598,11 +698,18 @@ const Products: React.FC = () => {
                   
                   <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                     <button
-                      className="page-link"
+                      className={`page-link border-luxury-silver fw-medium ${currentPage === totalPages ? 'bg-luxury-silver text-luxury-charcoal' : 'bg-luxury-white text-luxury-charcoal hover:bg-luxury-gold hover:text-luxury-black'}`}
                       onClick={() => setCurrentPage(currentPage + 1)}
                       disabled={currentPage === totalPages}
+                      style={{ 
+                        borderWidth: '2px',
+                        borderRadius: '6px',
+                        margin: '0 2px',
+                        minWidth: '80px'
+                      }}
                     >
-                      Próximo
+                      PRÓXIMO
+                      <i className="fas fa-chevron-right ms-1"></i>
                     </button>
                   </li>
                 </ul>
@@ -667,7 +774,7 @@ const Products: React.FC = () => {
                 <option value="">Selecione uma categoria</option>
                 {PRODUCT_CATEGORIES.map((category) => (
                   <option key={category.value} value={category.value}>
-                    {category.icon} {category.label}
+                    {category.label}
                   </option>
                 ))}
               </Form.Select>
@@ -801,9 +908,9 @@ const Products: React.FC = () => {
                   {/* Categoria */}
                   <div className="mb-3">
                     <strong>Categoria:</strong>
-                    <Badge bg="primary" className="ms-2">
-                      {getCategoryIcon(selectedProduct.category)} {getCategoryLabel(selectedProduct.category)}
-                    </Badge>
+                    <span className="badge bg-luxury-gold text-luxury-black fw-bold ms-2 px-3 py-2" style={{ fontSize: '12px', borderRadius: '12px' }}>
+                      {getCategoryLabel(selectedProduct.category).toUpperCase()}
+                    </span>
                   </div>
 
                   {/* Descrição */}
@@ -823,22 +930,24 @@ const Products: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="col-md-4">
-                  <h5 className="text-dark-green mb-3">Estoque</h5>
-                  {selectedProduct.stocks && selectedProduct.stocks.length > 0 ? (
-                    <div>
-                      {selectedProduct.stocks.map((stock) => (
-                        <div key={stock.id} className="mb-2">
-                          <small className="text-muted">
-                            Tamanho padrão: <span className="fw-bold">{stock.quantity} unidades</span>
-                          </small>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-muted">Sem informações de estoque</p>
-                  )}
-                </div>
+                {isAdmin && (
+                  <div className="col-md-4">
+                    <h5 className="text-dark-green mb-3">Estoque</h5>
+                    {selectedProduct.stocks && selectedProduct.stocks.length > 0 ? (
+                      <div>
+                        {selectedProduct.stocks.map((stock) => (
+                          <div key={stock.id} className="mb-2">
+                            <small className="text-muted">
+                              Tamanho padrão: <span className="fw-bold">{stock.quantity} unidades</span>
+                            </small>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-muted">Sem informações de estoque</p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Galeria de Imagens */}
@@ -866,8 +975,8 @@ const Products: React.FC = () => {
                             }}
                           />
                           {image.is_primary && (
-                            <span className="badge bg-primary position-absolute top-0 end-0 m-1">
-                              Principal
+                            <span className="badge bg-luxury-charcoal text-luxury-gold fw-bold position-absolute top-0 end-0 m-1 px-2 py-1" style={{ fontSize: '10px', borderRadius: '8px' }}>
+                              PRINCIPAL
                             </span>
                           )}
                         </div>
@@ -880,6 +989,33 @@ const Products: React.FC = () => {
           )}
         </Modal.Body>
         <Modal.Footer>
+          <Button
+            variant="success"
+            onClick={() => {
+              if (!isAdminMode) {
+                // Modo público - verificar se está logado
+                if (!isAuthenticated) {
+                  toast.error('Faça login para adicionar itens ao carrinho!', {
+                    icon: '🔒',
+                    style: {
+                      background: 'var(--luxury-charcoal)',
+                      color: 'var(--luxury-white)',
+                      fontWeight: 'bold'
+                    }
+                  });
+                  return;
+                }
+              }
+              
+              if (selectedProduct) {
+                addToCart(selectedProduct);
+              }
+            }}
+            className="gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
+          >
+            <i className="fas fa-shopping-cart me-2"></i>
+            ADICIONAR AO CARRINHO
+          </Button>
           {isAdmin && (
             <Button 
               variant="outline-primary" 

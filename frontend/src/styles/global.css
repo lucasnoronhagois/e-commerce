@@ -94,6 +94,21 @@ body {
   font-weight: 700;
   color: var(--darker-green) !important;
   font-size: 1.5rem;
+  text-align: left !important;
+  margin-right: auto !important;
+}
+
+/* Layout customizado para melhor aproveitamento do espaço */
+.container-fluid.px-3 {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+@media (max-width: 768px) {
+  .container-fluid.px-3 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }
 
 .nav-link {

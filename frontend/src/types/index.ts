@@ -76,8 +76,6 @@ export interface CustomerDetail {
   city?: string;
   state?: string;
   address_number?: string;
-  created_at: string;
-  updated_at: string;
   user?: User;
 }
 

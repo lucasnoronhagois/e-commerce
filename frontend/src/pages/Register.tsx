@@ -94,15 +94,21 @@ const Register: React.FC = () => {
   return (
     <Row className="justify-content-center">
       <Col xs={12} sm={10} md={8} lg={6}>
-        <Card className="card">
-          <Card.Body>
+        <Card className="card border-luxury-gold shadow-luxury bg-luxury-cream">
+          <Card.Body className="p-4">
             <div className="text-center mb-4">
-              <h2 className="text-dark-green">Cadastrar-se</h2>
-              <p className="text-muted px-2">Crie sua conta de cliente</p>
+              <h2 className="text-luxury-charcoal mb-3">
+                <i className="fas fa-crown text-luxury-gold me-2"></i>
+                Cadastrar-se
+              </h2>
+              <p className="text-luxury-charcoal px-2 opacity-75">
+                Crie sua conta de cliente
+              </p>
             </div>
 
             {error && (
-              <Alert variant="danger" className="mb-3">
+              <Alert variant="danger" className="mb-3 border-danger">
+                <i className="fas fa-exclamation-triangle me-2"></i>
                 {error}
               </Alert>
             )}
@@ -111,8 +117,16 @@ const Register: React.FC = () => {
               <Row className="g-3">
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Nome Completo</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-user text-luxury-gold me-2"></i>
+                      Nome Completo
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="name"
                       value={formData.name}
@@ -124,8 +138,16 @@ const Register: React.FC = () => {
                 </Col>
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Telefone</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-phone text-luxury-gold me-2"></i>
+                      Telefone
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="tel"
                       name="phone"
                       value={formData.phone}
@@ -141,8 +163,16 @@ const Register: React.FC = () => {
               <Row className="g-3">
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-envelope text-luxury-gold me-2"></i>
+                      Email
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="email"
                       name="mail"
                       value={formData.mail}
@@ -156,6 +186,11 @@ const Register: React.FC = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>Login</Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="login"
                       value={formData.login}
@@ -170,8 +205,16 @@ const Register: React.FC = () => {
               <Row className="g-3">
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Senha</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-lock text-luxury-gold me-2"></i>
+                      Senha
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="password"
                       name="password"
                       value={formData.password}
@@ -183,8 +226,16 @@ const Register: React.FC = () => {
                 </Col>
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Confirmar Senha</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-lock text-luxury-gold me-2"></i>
+                      Confirmar Senha
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="password"
                       name="confirmPassword"
                       value={formData.confirmPassword}
@@ -197,7 +248,10 @@ const Register: React.FC = () => {
               </Row>
 
               <Form.Group className="mb-3">
-                <Form.Label>Endereço</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-home text-luxury-gold me-2"></i>
+                      Endereço
+                    </Form.Label>
                 <Form.Control
                   type="text"
                   name="address"
@@ -213,6 +267,11 @@ const Register: React.FC = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>Número</Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="addressNumber"
                       value={formData.addressNumber}
@@ -226,6 +285,11 @@ const Register: React.FC = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>Bairro</Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="neighborhood"
                       value={formData.neighborhood}
@@ -240,8 +304,16 @@ const Register: React.FC = () => {
               <Row className="g-3">
                 <Col xs={12} md={8}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Cidade</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-city text-luxury-gold me-2"></i>
+                      Cidade
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="city"
                       value={formData.city}
@@ -253,8 +325,16 @@ const Register: React.FC = () => {
                 </Col>
                 <Col xs={12} md={4}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Estado</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-flag text-luxury-gold me-2"></i>
+                      Estado
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="state"
                       value={formData.state}
@@ -270,13 +350,21 @@ const Register: React.FC = () => {
               <Row className="g-3">
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>CPF/CNPJ</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-id-card text-luxury-gold me-2"></i>
+                      CPF
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="document"
                       value={formData.document}
                       onChange={handleChange}
-                      placeholder="000.000.000-00 ou 00.000.000/0000-00"
+                      placeholder="000.000.000-00"
                       maxLength={18}
                       required
                     />
@@ -284,8 +372,16 @@ const Register: React.FC = () => {
                 </Col>
                 <Col xs={12} md={6}>
                   <Form.Group className="mb-4">
-                    <Form.Label>CEP</Form.Label>
+                    <Form.Label className="text-luxury-charcoal fw-medium">
+                      <i className="fas fa-map-marker-alt text-luxury-gold me-2"></i>
+                      CEP
+                    </Form.Label>
                     <Form.Control
+                      className="border-luxury-silver focus-luxury-gold"
+                      style={{ 
+                        backgroundColor: 'var(--luxury-white)',
+                        color: 'var(--luxury-charcoal)'
+                      }}
                       type="text"
                       name="zipCode"
                       value={formData.zipCode}
@@ -300,22 +396,39 @@ const Register: React.FC = () => {
 
               <Button
                 type="submit"
-                variant="primary"
-                className="w-100 mb-3"
+                variant="success"
+                className="w-100 mb-3 gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
                 disabled={isLoading}
+                style={{ 
+                  padding: '12px',
+                  fontSize: '16px',
+                  fontWeight: 'bold'
+                }}
               >
-                {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+                {isLoading ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin me-2"></i>
+                    Cadastrando...
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-user-plus me-2"></i>
+                    Cadastrar
+                  </>
+                )}
               </Button>
             </Form>
 
             <div className="text-center">
-              <p className="text-muted">
+              <p className="text-luxury-charcoal mb-0">
                 Já tem uma conta?{' '}
                 <Button
                   variant="link"
-                  className="p-0 text-dark-green"
+                  className="p-0 text-luxury-gold fw-bold"
                   onClick={() => navigate('/login')}
+                  style={{ textDecoration: 'none' }}
                 >
+                  <i className="fas fa-sign-in-alt me-1"></i>
                   Faça login
                 </Button>
               </p>

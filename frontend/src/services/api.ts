@@ -4,6 +4,7 @@ import {
   Stock, 
   User, 
   Customer, 
+  CustomerDetail,
   AuthResponse, 
   LoginRequest, 
   CreateProductRequest, 
@@ -90,7 +91,7 @@ export const userApi = {
 
 // Customer API
 export const customerApi = {
-  getAll: (): Promise<Customer[]> => api.get('/customers').then(res => res.data),
+  getAll: (): Promise<CustomerDetail[]> => api.get('/customers').then(res => res.data),
   getById: (id: number): Promise<Customer> => api.get(`/customers/${id}`).then(res => res.data),
   create: (data: CreateCustomerRequest): Promise<Customer> => api.post('/customers/register', data).then(res => res.data),
   update: (id: number, data: Partial<CreateCustomerRequest>): Promise<Customer> => 

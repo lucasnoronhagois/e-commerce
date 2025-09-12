@@ -24,6 +24,8 @@
   /* Navbar mobile */
   .navbar-brand {
     font-size: 1.2rem;
+    text-align: left !important;
+    margin-right: auto !important;
   }
 
   .navbar-nav .nav-link {
@@ -261,6 +263,8 @@
   /* Melhor legibilidade */
   .navbar-brand {
     font-weight: 700;
+    text-align: left !important;
+    margin-right: auto !important;
   }
 
   /* Ajustes para listas */

@@ -22,39 +22,11 @@ const isValidCPF = (cpf: string): boolean => {
   return remainder === parseInt(cpf.charAt(10));
 };
 
-// Função para validar CNPJ
-const isValidCNPJ = (cnpj: string): boolean => {
-  cnpj = cnpj.replace(/[^\d]/g, '');
-  if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
-  
-  let sum = 0;
-  let weight = 2;
-  for (let i = 11; i >= 0; i--) {
-    sum += parseInt(cnpj.charAt(i)) * weight;
-    weight = weight === 9 ? 2 : weight + 1;
-  }
-  let remainder = sum % 11;
-  const digit1 = remainder < 2 ? 0 : 11 - remainder;
-  if (digit1 !== parseInt(cnpj.charAt(12))) return false;
-  
-  sum = 0;
-  weight = 2;
-  for (let i = 12; i >= 0; i--) {
-    sum += parseInt(cnpj.charAt(i)) * weight;
-    weight = weight === 9 ? 2 : weight + 1;
-  }
-  remainder = sum % 11;
-  const digit2 = remainder < 2 ? 0 : 11 - remainder;
-  return digit2 === parseInt(cnpj.charAt(13));
-};
-
-// Função para validar CPF ou CNPJ
+// Função para validar CPF
 const isValidDocument = (document: string): boolean => {
   const cleanDoc = document.replace(/[^\d]/g, '');
   if (cleanDoc.length === 11) {
     return isValidCPF(document);
-  } else if (cleanDoc.length === 14) {
-    return isValidCNPJ(document);
   }
   return false;
 };
@@ -67,7 +39,7 @@ export const createCustomerSchema = yup.object({
   password: yup.string().required('Senha é obrigatória').min(6, 'Senha deve ter pelo menos 6 caracteres'),
   address: yup.string().required('Endereço é obrigatório').min(10, 'Endereço deve ter pelo menos 10 caracteres'),
   zip_code: yup.string().required('CEP é obrigatório').matches(/^[0-9]{5}-?[0-9]{3}$/, 'Formato de CEP inválido'),
-  document: yup.string().required('CPF ou CNPJ é obrigatório').test('is-valid-document', 'CPF ou CNPJ inválido', function(value) {
+  document: yup.string().required('CPF é obrigatório').test('is-valid-document', 'CPF inválido', function(value) {
     return isValidDocument(value);
   }),
   neighborhood: yup.string().required('Bairro é obrigatório').min(2, 'Bairro deve ter pelo menos 2 caracteres'),
@@ -96,7 +68,7 @@ export const updateCustomerSchema = yup.object({
     if (!value) return true; // Campo opcional
     return /^[0-9]{5}-?[0-9]{3}$/.test(value);
   }),
-  document: yup.string().test('is-valid-document', 'CPF ou CNPJ inválido', function(value) {
+  document: yup.string().test('is-valid-document', 'CPF inválido', function(value) {
     if (!value) return true; // Campo opcional na atualização
     return isValidDocument(value);
   }),

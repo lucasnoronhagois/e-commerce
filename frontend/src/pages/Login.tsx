@@ -31,7 +31,7 @@ const Login: React.FC = () => {
     setError('');
 
     try {
-      const result = await login(formData.login, formData.password);
+      await login(formData.login, formData.password);
       toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (err: any) {
@@ -46,22 +46,31 @@ const Login: React.FC = () => {
   return (
     <Row className="justify-content-center">
       <Col xs={12} sm={10} md={6} lg={4}>
-        <Card className="card">
-          <Card.Body>
+        <Card className="card border-luxury-gold shadow-luxury bg-luxury-cream">
+          <Card.Body className="p-4">
             <div className="text-center mb-4">
-              <h2 className="text-dark-green">Entrar</h2>
-              <p className="text-muted px-2">Acesse sua conta (usuário ou cliente)</p>
+              <h2 className="text-luxury-charcoal mb-3">
+                <i className="fas fa-crown text-luxury-gold me-2"></i>
+                Entrar
+              </h2>
+              <p className="text-luxury-charcoal px-2 opacity-75">
+                Acesse sua conta
+              </p>
             </div>
 
             {error && (
-              <Alert variant="danger" className="mb-3">
+              <Alert variant="danger" className="mb-3 border-danger">
+                <i className="fas fa-exclamation-triangle me-2"></i>
                 {error}
               </Alert>
             )}
 
             <form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
-                <Form.Label>Login</Form.Label>
+                <Form.Label className="text-luxury-charcoal fw-medium">
+                  <i className="fas fa-user text-luxury-gold me-2"></i>
+                  Login
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="login"
@@ -69,11 +78,19 @@ const Login: React.FC = () => {
                   onChange={handleChange}
                   placeholder="Digite seu login"
                   required
+                  className="border-luxury-silver focus-luxury-gold"
+                  style={{ 
+                    backgroundColor: 'var(--luxury-white)',
+                    color: 'var(--luxury-charcoal)'
+                  }}
                 />
               </Form.Group>
 
               <Form.Group className="mb-4">
-                <Form.Label>Senha</Form.Label>
+                <Form.Label className="text-luxury-charcoal fw-medium">
+                  <i className="fas fa-lock text-luxury-gold me-2"></i>
+                  Senha
+                </Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
@@ -81,28 +98,50 @@ const Login: React.FC = () => {
                   onChange={handleChange}
                   placeholder="Digite sua senha"
                   required
+                  className="border-luxury-silver focus-luxury-gold"
+                  style={{ 
+                    backgroundColor: 'var(--luxury-white)',
+                    color: 'var(--luxury-charcoal)'
+                  }}
                 />
               </Form.Group>
 
               <Button
                 type="button"
-                variant="primary"
-                className="w-100 mb-3"
+                variant="success"
+                className="w-100 mb-3 gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
                 disabled={isLoading}
                 onClick={handleSubmit}
+                style={{ 
+                  padding: '12px',
+                  fontSize: '16px',
+                  fontWeight: 'bold'
+                }}
               >
-                {isLoading ? 'Entrando...' : 'Entrar'}
+                {isLoading ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin me-2"></i>
+                    Entrando...
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-sign-in-alt me-2"></i>
+                    Entrar
+                  </>
+                )}
               </Button>
             </form>
 
             <div className="text-center">
-              <p className="text-muted">
+              <p className="text-luxury-charcoal mb-0">
                 Não tem uma conta?{' '}
                 <Button
                   variant="link"
-                  className="p-0 text-dark-green"
+                  className="p-0 text-luxury-gold fw-bold"
                   onClick={() => navigate('/register')}
+                  style={{ textDecoration: 'none' }}
                 >
+                  <i className="fas fa-user-plus me-1"></i>
                   Cadastre-se
                 </Button>
               </p>

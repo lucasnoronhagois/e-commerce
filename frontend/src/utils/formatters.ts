@@ -54,9 +54,9 @@ export const isValidPhone = (phone: string): boolean => {
 };
 
 /**
- * Formata CPF ou CNPJ
+ * Formata CPF
  * @param value - Valor do documento (apenas números)
- * @returns CPF formatado (000.000.000-00) ou CNPJ formatado (00.000.000/0000-00)
+ * @returns CPF formatado (000.000.000-00)
  */
 export const formatDocument = (value: string): string => {
   const numbers = value.replace(/\D/g, '');
@@ -64,29 +64,13 @@ export const formatDocument = (value: string): string => {
   if (numbers.length === 0) return '';
   
   // CPF (11 dígitos)
-  if (numbers.length <= 11) {
-    if (numbers.length <= 3) return numbers;
-    if (numbers.length <= 6) return `${numbers.slice(0, 3)}.${numbers.slice(3)}`;
-    if (numbers.length <= 9) return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6)}`;
-    if (numbers.length <= 11) return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6, 9)}-${numbers.slice(9)}`;
-    
-    // Limitar a 11 dígitos para CPF
-    return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6, 9)}-${numbers.slice(9, 11)}`;
-  }
+  if (numbers.length <= 3) return numbers;
+  if (numbers.length <= 6) return `${numbers.slice(0, 3)}.${numbers.slice(3)}`;
+  if (numbers.length <= 9) return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6)}`;
+  if (numbers.length <= 11) return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6, 9)}-${numbers.slice(9)}`;
   
-  // CNPJ (14 dígitos)
-  if (numbers.length <= 14) {
-    if (numbers.length <= 2) return numbers;
-    if (numbers.length <= 5) return `${numbers.slice(0, 2)}.${numbers.slice(2)}`;
-    if (numbers.length <= 8) return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5)}`;
-    if (numbers.length <= 12) return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8)}`;
-    if (numbers.length <= 14) return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8, 12)}-${numbers.slice(12)}`;
-    
-    // Limitar a 14 dígitos para CNPJ
-    return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8, 12)}-${numbers.slice(12, 14)}`;
-  }
-  
-  return value;
+  // Limitar a 11 dígitos para CPF
+  return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6, 9)}-${numbers.slice(9, 11)}`;
 };
 
 /**
@@ -100,13 +84,13 @@ export const isValidCEP = (cep: string): boolean => {
 };
 
 /**
- * Valida se um CPF ou CNPJ é válido
+ * Valida se um CPF é válido
  * @param document - Documento (com ou sem formatação)
  * @returns true se válido, false caso contrário
  */
 export const isValidDocument = (document: string): boolean => {
   const cleanDocument = removeFormatting(document);
-  return cleanDocument.length === 11 || cleanDocument.length === 14;
+  return cleanDocument.length === 11;
 };
 
 /**

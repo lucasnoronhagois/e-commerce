@@ -8,7 +8,7 @@ module.exports = {
       type: Sequelize.STRING(20),
       allowNull: false,
       unique: true,
-      comment: 'CPF ou CNPJ do cliente'
+      comment: 'CPF do cliente'
     });
 
     await queryInterface.addColumn('customers', 'neighborhood', {

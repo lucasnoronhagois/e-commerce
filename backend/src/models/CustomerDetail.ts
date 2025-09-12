@@ -11,11 +11,9 @@ export interface CustomerDetailAttributes {
   city?: string;
   state?: string;
   address_number?: string;
-  created_at: Date;
-  updated_at: Date;
 }
 
-export interface CustomerDetailCreationAttributes extends Omit<CustomerDetailAttributes, 'id' | 'created_at' | 'updated_at'> {}
+export interface CustomerDetailCreationAttributes extends Omit<CustomerDetailAttributes, 'id'> {}
 
 export class CustomerDetail extends Model<CustomerDetailAttributes, CustomerDetailCreationAttributes> {
   declare id: number;
@@ -28,8 +26,6 @@ export class CustomerDetail extends Model<CustomerDetailAttributes, CustomerDeta
   declare city?: string;
   declare state?: string;
   declare address_number?: string;
-  declare created_at: Date;
-  declare updated_at: Date;
   declare user?: any; // Para a associação
 
   static load(sequelize: Sequelize) {
@@ -87,7 +83,7 @@ export class CustomerDetail extends Model<CustomerDetailAttributes, CustomerDeta
       tableName: 'customer_detail',
       underscored: true,
       paranoid: false,
-      timestamps: true
+      timestamps: false // Removido timestamps pois usamos os da tabela users
     });
   }
 
