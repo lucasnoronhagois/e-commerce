@@ -78,20 +78,44 @@ export const createCustomerSchema = yup.object({
 
 export const updateCustomerSchema = yup.object({
   name: yup.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
-  phone: yup.string().matches(/^[0-9+\-\s()]+$/, 'Formato de telefone inválido'),
+  phone: yup.string().test('phone-validation', 'Formato de telefone inválido', function(value) {
+    if (!value) return true; // Campo opcional
+    return /^[0-9+\-\s()]+$/.test(value);
+  }),
   mail: yup.string().email('Formato de email inválido'),
   login: yup.string().min(3, 'Login deve ter pelo menos 3 caracteres'),
-  password: yup.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
-  address: yup.string().min(10, 'Endereço deve ter pelo menos 10 caracteres'),
-  zip_code: yup.string().matches(/^[0-9]{5}-?[0-9]{3}$/, 'Formato de CEP inválido'),
+  password: yup.string().test('password-validation', 'Senha deve ter pelo menos 6 caracteres', function(value) {
+    if (!value) return true; // Campo opcional na atualização
+    return value.length >= 6;
+  }),
+  address: yup.string().test('address-validation', 'Endereço deve ter pelo menos 10 caracteres', function(value) {
+    if (!value) return true; // Campo opcional
+    return value.length >= 10;
+  }),
+  zip_code: yup.string().test('zip-validation', 'Formato de CEP inválido', function(value) {
+    if (!value) return true; // Campo opcional
+    return /^[0-9]{5}-?[0-9]{3}$/.test(value);
+  }),
   document: yup.string().test('is-valid-document', 'CPF ou CNPJ inválido', function(value) {
     if (!value) return true; // Campo opcional na atualização
     return isValidDocument(value);
   }),
-  neighborhood: yup.string().min(2, 'Bairro deve ter pelo menos 2 caracteres'),
-  city: yup.string().min(2, 'Cidade deve ter pelo menos 2 caracteres'),
-  state: yup.string().length(2, 'Estado deve ter exatamente 2 caracteres (sigla)'),
-  address_number: yup.string().min(1, 'Número do endereço é obrigatório')
+  neighborhood: yup.string().test('neighborhood-validation', 'Bairro deve ter pelo menos 2 caracteres', function(value) {
+    if (!value) return true; // Campo opcional
+    return value.length >= 2;
+  }),
+  city: yup.string().test('city-validation', 'Cidade deve ter pelo menos 2 caracteres', function(value) {
+    if (!value) return true; // Campo opcional
+    return value.length >= 2;
+  }),
+  state: yup.string().test('state-validation', 'Estado deve ter exatamente 2 caracteres (sigla)', function(value) {
+    if (!value) return true; // Campo opcional
+    return value.length === 2;
+  }),
+  address_number: yup.string().test('address-number-validation', 'Número do endereço é obrigatório', function(value) {
+    if (!value) return true; // Campo opcional
+    return value.length >= 1;
+  })
 });
 
 export const customerLoginSchema = yup.object({

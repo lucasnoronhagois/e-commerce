@@ -108,3 +108,16 @@ export const isValidDocument = (document: string): boolean => {
   const cleanDocument = removeFormatting(document);
   return cleanDocument.length === 11 || cleanDocument.length === 14;
 };
+
+/**
+ * Normaliza texto removendo acentos e convertendo para minúsculas
+ * @param text - Texto para normalizar
+ * @returns Texto normalizado sem acentos
+ */
+export const normalizeText = (text: string): string => {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+    .trim();
+};

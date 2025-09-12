@@ -30,6 +30,7 @@ export class CustomerDetail extends Model<CustomerDetailAttributes, CustomerDeta
   declare address_number?: string;
   declare created_at: Date;
   declare updated_at: Date;
+  declare user?: any; // Para a associação
 
   static load(sequelize: Sequelize) {
     return super.init({

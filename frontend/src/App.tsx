@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import Customers from './pages/Customers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import './styles/mobile.css';
@@ -59,10 +60,7 @@ const AppRoutes: React.FC = () => {
       } />
       <Route path="/customers" element={
         <ProtectedRoute requireAdmin>
-          <div className="text-center py-5">
-            <h2 className="text-dark-green">Clientes</h2>
-            <p className="text-muted">Página em desenvolvimento...</p>
-          </div>
+          <Customers />
         </ProtectedRoute>
       } />
       <Route path="/users" element={

@@ -65,6 +65,22 @@ export interface Customer {
   updated_at: string;
 }
 
+export interface CustomerDetail {
+  id: number;
+  user_id: number;
+  phone?: string;
+  address?: string;
+  zip_code?: string;
+  document?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  address_number?: string;
+  created_at: string;
+  updated_at: string;
+  user?: User;
+}
+
 export interface AuthResponse {
   user?: User;
   customer?: Customer;
@@ -104,12 +120,12 @@ export interface CreateCustomerRequest {
   login: string;
   password: string;
   address: string;
-  zipCode: string;
+  zip_code: string;
   document: string;
   neighborhood: string;
   city: string;
   state: string;
-  addressNumber: string;
+  address_number: string;
 }
 
 export interface ApiResponse<T> {

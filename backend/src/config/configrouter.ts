@@ -14,5 +14,6 @@ export default function setupRoutes(app: Application): void {
   
   // rotas protegidas por autenticação
   app.use('/api/users', authenticateToken, userRoutes);
+  app.use('/api/customers', authenticateToken, customerRoutes);
   app.use('/api/stock', authenticateToken, stockRoutes);
 }

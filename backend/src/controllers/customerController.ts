@@ -7,20 +7,9 @@ export class CustomerController {
   async createCustomer(req: Request, res: Response) {
     try {
       const customer = await customerService.createCustomer(req.body);
-      return res.status(201).json({
-        id: customer.id,
-        name: customer.name,
-        phone: customer.phone,
-        mail: customer.mail,
-        login: customer.login,
-        address: customer.address,
-        zip_code: customer.zip_code,
-        document: customer.document,
-        neighborhood: customer.neighborhood,
-        city: customer.city,
-        state: customer.state,
-        address_number: customer.address_number
-      });
+      // Buscar o customer com os dados do user incluídos
+      const customerWithUser = await customerService.getCustomerById(customer.id);
+      return res.status(201).json(customerWithUser);
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }
@@ -49,20 +38,9 @@ export class CustomerController {
     try {
       const { id } = req.params;
       const customer = await customerService.updateCustomer(parseInt(id), req.body);
-      return res.json({
-        id: customer.id,
-        name: customer.name,
-        phone: customer.phone,
-        mail: customer.mail,
-        login: customer.login,
-        address: customer.address,
-        zip_code: customer.zip_code,
-        document: customer.document,
-        neighborhood: customer.neighborhood,
-        city: customer.city,
-        state: customer.state,
-        address_number: customer.address_number
-      });
+      // Buscar o customer atualizado com os dados do user incluídos
+      const customerWithUser = await customerService.getCustomerById(parseInt(id));
+      return res.json(customerWithUser);
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }

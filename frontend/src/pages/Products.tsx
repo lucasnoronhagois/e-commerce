@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import ImageUpload from '../components/ImageUpload';
 import { PRODUCT_CATEGORIES, getCategoryLabel, getCategoryIcon } from '../constants/categories';
 import toast from 'react-hot-toast';
+import { normalizeText } from '../utils/formatters';
 
 // Componente de Carrossel para Imagens do Produto
 interface ProductImageCarouselProps {
@@ -151,8 +152,9 @@ const Products: React.FC = () => {
   // Filtrar e ordenar produtos
   const filteredAndSortedProducts = products
     .filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           product.description?.toLowerCase().includes(searchTerm.toLowerCase());
+      const normalizedSearchTerm = normalizeText(searchTerm);
+      const matchesSearch = normalizeText(product.name).includes(normalizedSearchTerm) ||
+                           (product.description && normalizeText(product.description).includes(normalizedSearchTerm));
       const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
       return matchesSearch && matchesCategory;
     })
@@ -496,11 +498,23 @@ const Products: React.FC = () => {
                     ID: {product.id}
                   </Card.Text>
                   
-                  {product.stocks && product.stocks.length > 0 && (
-                    <Card.Text className="text-muted small">
-                      Estoque: {product.stocks.reduce((total, stock) => total + stock.quantity, 0)} unidades
-                    </Card.Text>
-                  )}
+                  {product.stocks && product.stocks.length > 0 && (() => {
+                    const totalStock = product.stocks.reduce((total, stock) => total + stock.quantity, 0);
+                    return (
+                      <Card.Text className="text-muted small">
+                        Estoque: {totalStock} unidades
+                        {totalStock < 10 && totalStock > 0 && (
+                          <span className="ms-2 fw-bold" style={{ 
+                            animation: 'pulse 1.5s infinite',
+                            fontSize: '0.75rem',
+                            color: '#dc3545' // Vermelho Bootstrap
+                          }}>
+                            🔥 Últimas unidades
+                          </span>
+                        )}
+                      </Card.Text>
+                    );
+                  })()}
                   
                   {product.images && product.images.length > 1 && (
                     <Card.Text>
