@@ -35,7 +35,6 @@ const Login: React.FC = () => {
       toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (err: any) {
-      console.error('Erro no login:', err);
       setError(err.response?.data?.error || 'Erro ao fazer login');
       toast.error('Erro ao fazer login');
     } finally {

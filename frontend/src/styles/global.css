@@ -76,12 +76,58 @@ body {
   font-size: 16px;
   transition: all 0.3s ease;
   background: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-control:focus {
   border-color: var(--dark-green);
-  box-shadow: 0 0 0 0.2rem rgba(129, 199, 132, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(129, 199, 132, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
   background: var(--white);
+  outline: none;
+}
+
+.form-control:hover {
+  border-color: var(--dark-yellow);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Estilo específico para inputs em modais */
+.modal .form-control {
+  border: 2px solid #dee2e6;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal .form-control:focus {
+  border-color: var(--dark-green);
+  box-shadow: 0 0 0 0.2rem rgba(129, 199, 132, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal .form-control:hover {
+  border-color: #adb5bd;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* Estilo para Form.Select */
+.form-select {
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-select:focus {
+  border-color: var(--dark-green);
+  box-shadow: 0 0 0 0.2rem rgba(129, 199, 132, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.form-select:hover {
+  border-color: #adb5bd;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
 .navbar {

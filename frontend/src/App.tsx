@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Customers from './pages/Customers';
+import StockPage from './pages/Stock';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import './styles/mobile.css';
@@ -72,13 +73,10 @@ const AppRoutes: React.FC = () => {
         </ProtectedRoute>
       } />
       
-      {/* Estoque (protegido) */}
+      {/* Estoque (protegido para admins) */}
       <Route path="/stock" element={
-        <ProtectedRoute>
-          <div className="text-center py-5">
-            <h2 className="text-luxury-charcoal">Estoque</h2>
-            <p className="text-luxury-charcoal">Página em desenvolvimento...</p>
-          </div>
+        <ProtectedRoute requireAdmin>
+          <StockPage />
         </ProtectedRoute>
       } />
       

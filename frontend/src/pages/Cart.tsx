@@ -20,7 +20,6 @@ const Cart: React.FC = () => {
 
   const handleCheckout = () => {
     // Implementar checkout
-    console.log('Checkout iniciado');
   };
 
   // Mostrar loading enquanto o carrinho está sendo carregado

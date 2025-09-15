@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product } from '../types';
+import { useAuth } from './AuthContext';
 import toast from 'react-hot-toast';
 
 interface CartItem {
@@ -37,50 +38,56 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+
+  // Função para gerar chave única do carrinho baseada no usuário
+  const getCartKey = () => {
+    if (isAuthenticated && user) {
+      const userId = 'id' in user ? user.id : user.id;
+      return `luxury-cart-${userId}`;
+    }
+    return 'luxury-cart-guest';
+  };
 
   // Carregar carrinho do localStorage na inicialização
   useEffect(() => {
     const loadCart = () => {
       try {
-        const savedCart = localStorage.getItem('luxury-cart');
+        const cartKey = getCartKey();
+        const savedCart = localStorage.getItem(cartKey);
         if (savedCart) {
           const parsedCart = JSON.parse(savedCart);
           // Validar se os dados estão no formato correto
           if (Array.isArray(parsedCart)) {
             setCartItems(parsedCart);
-            console.log('Carrinho carregado do localStorage:', parsedCart.length, 'itens');
           } else {
-            console.warn('Formato inválido do carrinho no localStorage, iniciando vazio');
             setCartItems([]);
           }
         } else {
-          console.log('Nenhum carrinho encontrado no localStorage, iniciando vazio');
           setCartItems([]);
         }
       } catch (error) {
-        console.error('Erro ao carregar carrinho do localStorage:', error);
         setCartItems([]);
         // Limpar dados corrompidos
-        localStorage.removeItem('luxury-cart');
+        localStorage.removeItem(getCartKey());
       } finally {
         setIsInitialized(true);
       }
     };
 
     loadCart();
-  }, []);
+  }, [user, isAuthenticated]);
 
   // Salvar carrinho no localStorage sempre que houver mudanças
   useEffect(() => {
     if (isInitialized) {
       try {
-        localStorage.setItem('luxury-cart', JSON.stringify(cartItems));
-        console.log('Carrinho salvo no localStorage:', cartItems.length, 'itens');
+        const cartKey = getCartKey();
+        localStorage.setItem(cartKey, JSON.stringify(cartItems));
       } catch (error) {
-        console.error('Erro ao salvar carrinho no localStorage:', error);
       }
     }
-  }, [cartItems, isInitialized]);
+  }, [cartItems, isInitialized, user, isAuthenticated]);
 
   const addToCart = (product: Product, quantity: number = 1) => {
     setCartItems(prev => {
@@ -174,10 +181,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const clearCart = () => {
     setCartItems([]);
     try {
-      localStorage.removeItem('luxury-cart');
-      console.log('Carrinho limpo do localStorage');
+      const cartKey = getCartKey();
+      localStorage.removeItem(cartKey);
     } catch (error) {
-      console.error('Erro ao limpar carrinho do localStorage:', error);
     }
     toast.success('Carrinho limpo!', {
       icon: '🧹',

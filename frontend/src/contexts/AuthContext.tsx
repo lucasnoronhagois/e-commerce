@@ -30,16 +30,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
+    const token = sessionStorage.getItem('token');
+    const userData = sessionStorage.getItem('user');
     
     if (token && userData) {
       try {
         setUser(JSON.parse(userData));
       } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
       }
     }
     setIsLoading(false);
@@ -51,8 +50,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await userApi.login({ login, password });
       
       if (response.user && response.token) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('user', JSON.stringify(response.user));
         setUser(response.user);
       } else {
         throw new Error('Login inválido');
@@ -63,8 +62,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    // Limpar carrinho do usuário atual antes de fazer logout
+    if (user) {
+      const userId = 'id' in user ? user.id : user.id;
+      localStorage.removeItem(`luxury-cart-${userId}`);
+    }
+    
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     setUser(null);
   };
 

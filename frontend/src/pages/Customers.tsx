@@ -69,7 +69,6 @@ const Customers: React.FC = () => {
       const data = await customerApi.getAll();
       setCustomers(data);
     } catch (error: any) {
-      console.error('Erro ao carregar clientes:', error);
       toast.error('Erro ao carregar clientes');
     } finally {
       setIsLoading(false);
@@ -146,7 +145,6 @@ const Customers: React.FC = () => {
       resetForm();
       loadCustomers();
     } catch (error: any) {
-      console.error('Erro ao salvar cliente:', error);
       toast.error(error.response?.data?.error || 'Erro ao salvar cliente');
     }
   };
@@ -178,7 +176,6 @@ const Customers: React.FC = () => {
         toast.success('Cliente excluído com sucesso!');
         loadCustomers();
       } catch (error: any) {
-        console.error('Erro ao excluir cliente:', error);
         toast.error('Erro ao excluir cliente');
       }
     }
