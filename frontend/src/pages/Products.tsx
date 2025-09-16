@@ -344,7 +344,6 @@ const Products: React.FC = () => {
           onPageChange={setCurrentPage}
           showInfo={true}
           totalItems={filteredAndSortedProducts.length}
-          itemsPerPage={8}
           currentItemsCount={currentProducts.length}
         />
       )}

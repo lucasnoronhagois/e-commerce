@@ -8,7 +8,6 @@ interface PaginationProps {
   className?: string;
   showInfo?: boolean;
   totalItems?: number;
-  itemsPerPage?: number;
   currentItemsCount?: number;
 }
 
@@ -19,7 +18,6 @@ const Pagination: React.FC<PaginationProps> = ({
   className = '',
   showInfo = false,
   totalItems = 0,
-  itemsPerPage = 8,
   currentItemsCount = 0
 }) => {
   if (totalPages <= 1) {

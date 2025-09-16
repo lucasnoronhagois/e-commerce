@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Row, Col, Badge } from 'react-bootstrap';
+import { Modal, Button, Row, Col } from 'react-bootstrap';
 import { Product } from '../types';
 import { getCategoryLabel } from '../constants/categories';
 import toast from 'react-hot-toast';

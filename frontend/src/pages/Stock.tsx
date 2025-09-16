@@ -467,7 +467,6 @@ const StockPage: React.FC = () => {
           onPageChange={setCurrentPage}
           showInfo={true}
           totalItems={filteredStock.length}
-          itemsPerPage={10}
           currentItemsCount={currentStock.length}
         />
       )}

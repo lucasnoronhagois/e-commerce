@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     // Limpar carrinho do usuário atual antes de fazer logout
     if (user) {
-      const userId = 'id' in user ? user.id : user.id;
+      const userId = user.id;
       localStorage.removeItem(`luxury-cart-${userId}`);
     }
     

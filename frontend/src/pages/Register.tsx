@@ -70,6 +70,7 @@ const Register: React.FC = () => {
         mail: formData.mail,
         login: formData.login,
         password: formData.password,
+        role: "customer",
         address: formData.address,
         zip_code: cleanZipCode,
         document: formData.document,

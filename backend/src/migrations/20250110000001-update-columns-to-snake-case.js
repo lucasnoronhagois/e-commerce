@@ -2,24 +2,33 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Adicionar coluna is_deleted em todas as tabelas
-    await queryInterface.addColumn('products', 'is_deleted', {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    });
+    // Verificar e adicionar coluna is_deleted apenas se não existir
+    const productsDescription = await queryInterface.describeTable('products');
+    if (!productsDescription.is_deleted) {
+      await queryInterface.addColumn('products', 'is_deleted', {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      });
+    }
 
-    await queryInterface.addColumn('stock', 'is_deleted', {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    });
+    const stockDescription = await queryInterface.describeTable('stock');
+    if (!stockDescription.is_deleted) {
+      await queryInterface.addColumn('stock', 'is_deleted', {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      });
+    }
 
-    await queryInterface.addColumn('users', 'is_deleted', {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    });
+    const usersDescription = await queryInterface.describeTable('users');
+    if (!usersDescription.is_deleted) {
+      await queryInterface.addColumn('users', 'is_deleted', {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      });
+    }
 
     await queryInterface.addColumn('customers', 'is_deleted', {
       type: Sequelize.BOOLEAN,

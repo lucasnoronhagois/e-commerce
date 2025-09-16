@@ -106,11 +106,10 @@ const Login: React.FC = () => {
               </Form.Group>
 
               <Button
-                type="button"
+                type="submit"
                 variant="success"
                 className="w-100 mb-3 gradient-luxury-gold text-luxury-black fw-bold border-0 shadow-gold"
                 disabled={isLoading}
-                onClick={handleSubmit}
                 style={{ 
                   padding: '12px',
                   fontSize: '16px',

@@ -43,7 +43,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   // Função para gerar chave única do carrinho baseada no usuário
   const getCartKey = () => {
     if (isAuthenticated && user) {
-      const userId = 'id' in user ? user.id : user.id;
+      const userId = user.id;
       return `luxury-cart-${userId}`;
     }
     return 'luxury-cart-guest';

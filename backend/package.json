@@ -13,7 +13,11 @@
     "migrate:undo:all": "sequelize-cli db:migrate:undo:all",
     "migrate:status": "sequelize-cli db:migrate:status",
     "seed": "sequelize-cli db:seed:all",
-    "seed:undo": "sequelize-cli db:seed:undo:all"
+    "seed:undo": "sequelize-cli db:seed:undo:all",
+    "docker:dev": "docker-compose up --build",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up --build -d",
+    "docker:down": "docker-compose down",
+    "docker:clean": "docker-compose down -v --remove-orphans"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
