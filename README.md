@@ -397,6 +397,41 @@ REACT_APP_API_URL=http://localhost:3001
 
 > ⚠️ **IMPORTANTE**: Nunca commite o arquivo `.env` com dados reais! Use valores de exemplo ou variáveis de ambiente seguras em produção.
 
+## 🧪 Testes
+
+### Estrutura de Testes
+- ✅ **Backend**: Jest + Supertest para testes unitários e de integração
+- ✅ **Frontend**: Vitest + Testing Library para testes de componentes
+- ✅ **Cobertura**: Relatórios de cobertura para ambos os projetos
+- ✅ **Mocks**: Mocks adequados para serviços externos (Cloudinary, JWT, etc.)
+
+### Executar Testes
+
+**Backend:**
+```bash
+npm run test             # Executar todos os testes
+npm run test:watch       # Executar testes em modo watch
+npm run test:coverage    # Executar testes com cobertura
+npm run test:ci          # Executar testes para CI/CD
+```
+
+**Frontend:**
+```bash
+npm run test             # Executar todos os testes
+npm run test:ui          # Interface visual dos testes
+npm run test:coverage    # Executar testes com cobertura
+npm run test:ci          # Executar testes para CI/CD
+```
+
+### Cobertura de Testes
+- **Modelos**: Testes de criação, validação e associações
+- **Services**: Testes de lógica de negócio e integração com banco
+- **Controllers**: Testes de endpoints e tratamento de erros
+- **Middlewares**: Testes de autenticação e validação
+- **Contextos**: Testes de estado global (Auth, Cart)
+- **Componentes**: Testes de renderização e interações
+- **Hooks**: Testes de formatação e lógica customizada
+
 ## 🔧 Scripts Disponíveis
 
 ### Backend
@@ -409,6 +444,9 @@ npm run migrate:undo     # Desfazer última migração
 npm run migrate:status   # Status das migrações
 npm run seed             # Executar seeds
 npm run test             # Executar testes
+npm run test:watch       # Executar testes em modo watch
+npm run test:coverage    # Executar testes com cobertura
+npm run test:ci          # Executar testes para CI/CD
 ```
 
 ### Frontend
@@ -417,6 +455,10 @@ npm run dev              # Executar em modo desenvolvimento
 npm run build            # Build para produção
 npm run preview          # Preview do build
 npm run lint             # Verificar código com ESLint
+npm run test             # Executar testes
+npm run test:ui          # Interface visual dos testes
+npm run test:coverage    # Executar testes com cobertura
+npm run test:ci          # Executar testes para CI/CD
 ```
 
 ### Docker
@@ -523,4 +565,4 @@ Se você encontrar algum problema ou tiver dúvidas:
 
 ⭐ **Se este projeto te ajudou, não esqueça de dar uma estrela!** ⭐
 
-**E-Commerce Fullstack** - Desenvolvido com ❤️ por [Lucas Noronha Gois](https://github.com/lucasnoronhagois)
+**E-Commerce Fullstack** - Desenvolvido por [Lucas Noronha Gois](https://github.com/lucasnoronhagois)
