@@ -7,8 +7,8 @@ services:
     container_name: commerce_mysql_prod
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-K41pt0k41}
-      MYSQL_DATABASE: ${DB_NAME:-commerce}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
     ports:
       - "3307:3306"
     volumes:
@@ -29,16 +29,16 @@ services:
       - NODE_ENV=production
       - DB_HOST=database
       - DB_PORT=3306
-      - DB_NAME=${DB_NAME:-commerce}
-      - DB_USER=${DB_USER:-root}
-      - DB_PASSWORD=${DB_PASSWORD:-K41pt0k41}
-      - JWT_SECRET=${JWT_SECRET:-1q2wsenhasecreta}
-      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-8h}
-      - PORT=${PORT:-3001}
-      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
-      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-dbd6s4f4s}
-      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-944725155657453}
-      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-N8UGlKvzQSINogt2nKKlG26qcGQ}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - PORT=${PORT}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
     ports:
       - "3001:3001"
     depends_on:
@@ -64,7 +64,7 @@ services:
     depends_on:
       - backend
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:3001}
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
     networks:
       - commerce_network
 
